@@ -180,10 +180,13 @@ async def process_voice_pipeline(
             content={"success": False, "error": str(e)}
         )
 
-# Frontend static files mounting
+# Frontend static files mounting (only mounted if directory exists and not in serverless static mode)
 frontend_path = Path(__file__).resolve().parent.parent / "frontend"
 if frontend_path.exists():
-    app.mount("/", StaticFiles(directory=str(frontend_path), html=True), name="frontend")
+    try:
+        app.mount("/", StaticFiles(directory=str(frontend_path), html=True), name="frontend")
+    except Exception as e:
+        print(f"Static mounting note: {e}")
 
 if __name__ == "__main__":
     import uvicorn
