@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: voicekisan
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn main:app --app-dir backend --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: GNANI_API_KEY
+        sync: false
+      - key: EVON_API_KEY
+        sync: false

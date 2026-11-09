@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.env
+.venv/
+env/
+venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Audio scratch / recordings
+*.wav
+*.mp3
+*.webm

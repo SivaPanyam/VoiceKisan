@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VoiceKisan • Autonomous Indic Agri-Intelligence Agent</title>
+  <link rel="stylesheet" href="styles.css?v=2.0.1">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Top Navigation Bar -->
+  <header>
+    <div class="logo-container">
+      <div class="logo-badge">🌾 VK</div>
+      <div class="logo-title">
+        <h1>VoiceKisan <span>v2.0</span></h1>
+        <p>Autonomous Indic Agri-Intelligence Agent for Indian Farmers</p>
+      </div>
+    </div>
+    <div class="header-badges">
+      <div class="tech-pill">
+        <span class="dot-green"></span>
+        <span>Gnani Prisma • Evon 30B • Timbre Live</span>
+      </div>
+      <div class="tech-pill sarima-pill">
+        <span>📈 SARIMA Market Forecast</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Voice Interaction Hero Hub -->
+    <section class="control-hub">
+      <div class="hub-header">
+        <div class="selector-box">
+          <label for="langSelect">🗣️ Farmer Language:</label>
+          <select id="langSelect" class="lang-select">
+            <option value="hi-IN" selected>Hindi (हिंदी - Nalini Voice)</option>
+            <option value="te-IN">Telugu (తెలుగు - Kaveri Voice)</option>
+            <option value="kn-IN">Kannada (ಕನ್ನಡ - Pranav Voice)</option>
+            <option value="ta-IN">Tamil (தமிழ் - Kartik Voice)</option>
+            <option value="hinglish">Hinglish (Colloquial Mixed)</option>
+          </select>
+        </div>
+        <div class="session-tag">Session: <strong id="sessionIdDisplay">VK-Active</strong></div>
+      </div>
+
+      <div class="voice-action-container">
+        <button id="recordBtn" class="mic-btn" title="Tap to Speak">
+          🎤
+        </button>
+        <canvas id="visualizerCanvas" class="visualizer-canvas"></canvas>
+        <p id="recordStatus" class="recording-status-text">Tap the microphone and talk naturally (e.g. "Namaste" or "Mandi me gehun ka kya bhav chalega?")</p>
+      </div>
+
+      <!-- Pipeline Telemetry -->
+      <div class="pipeline-indicator">
+        <div class="pipeline-step" id="step-mic">
+          <div class="step-circle">1</div>
+          <span class="step-label">Audio In</span>
+        </div>
+        <div class="pipeline-step" id="step-prisma">
+          <div class="step-circle">2</div>
+          <span class="step-label">Prisma STT</span>
+        </div>
+        <div class="pipeline-step" id="step-evon">
+          <div class="step-circle">3</div>
+          <span class="step-label">Evon Reasoning</span>
+        </div>
+        <div class="pipeline-step" id="step-market">
+          <div class="step-circle">4</div>
+          <span class="step-label">Market Intelligence</span>
+        </div>
+        <div class="pipeline-step" id="step-timbre">
+          <div class="step-circle">5</div>
+          <span class="step-label">Timbre Spoken Voice</span>
+        </div>
+      </div>
+
+      <!-- Quick Test Chips -->
+      <div class="quick-tests">
+        <span class="chip-label">⚡ Real Scenarios:</span>
+        <button class="quick-chip" onclick="simulatePreset('hi-IN', 'नमस्ते वॉयस किसान, आप मेरी क्या मदद कर सकते हैं?')">
+          👋 Friendly Greeting
+        </button>
+        <button class="quick-chip highlight-chip" onclick="simulatePreset('hi-IN', 'गेहूं का मंडी भाव क्या चल रहा है और मुझे अभी बेचना चाहिए या रुकना चाहिए?')">
+          📈 Wheat Mandi Forecast
+        </button>
+        <button class="quick-chip" onclick="simulatePreset('te-IN', 'నమస్కారం, నాకు 3 ఎకరాల పత్తి పంట ఉంది. బ్యాంక్ లోన్ లేదా KCC ఎలా పొందాలి?')">
+          💳 Telugu Cotton KCC
+        </button>
+        <button class="quick-chip" onclick="simulatePreset('hi-IN', 'कल रात ओले पड़ने से मेरी 2 एकड़ गेहूं की फसल खराब हो गई, मुआवजा कैसे मिलेगा?')">
+          🌧️ Emergency PMFBY Claim
+        </button>
+        <button class="quick-chip" onclick="simulatePreset('hinglish', 'Sir 2 acre land me drip irrigation lagwana hai subsidy kitni milegi?')">
+          💧 Drip Irrigation Subsidy
+        </button>
+      </div>
+    </section>
+
+    <!-- Interactive Workspace Grid -->
+    <section class="dashboard-grid">
+      
+      <!-- Left Column: Conversational Stream & STT Breakdown -->
+      <div class="card chat-card">
+        <div class="card-header">
+          <h2><span>💬</span> Multi-turn Conversation</h2>
+          <span class="tech-tag">Gnani Prisma • Memory Active</span>
+        </div>
+        
+        <div class="conversation-feed" id="conversationFeed">
+          <div class="msg-bubble bot-msg">
+            <div class="msg-sender">🌾 VoiceKisan</div>
+            <div class="msg-text">
+              नमस्ते किसान भाई! मैं वॉयस किसान हूँ। आप बोलकर मुझसे फसल नुकसान मुआवजा, मंडी भाव पूर्वानुमान, या किसान क्रेडिट कार्ड लोन के बारे में पूछ सकते हैं।
+            </div>
+          </div>
+        </div>
+
+        <div class="entity-summary-box">
+          <div class="entity-pill"><span>🌱 Crop:</span> <strong id="entityCrop">--</strong></div>
+          <div class="entity-pill"><span>📐 Land:</span> <strong id="entityLand">--</strong></div>
+          <div class="entity-pill"><span>⚠️ Needs:</span> <strong id="entityIssue">--</strong></div>
+          <div class="entity-pill"><span>🚨 Urgency:</span> <strong id="entityUrgency">--</strong></div>
+        </div>
+      </div>
+
+      <!-- Right Column: Statutory Schemes & SARIMA Market Intelligence -->
+      <div class="card intelligence-card">
+        
+        <!-- Market Intelligence HUD -->
+        <div id="marketHud" class="market-hud">
+          <div class="hud-top">
+            <span class="hud-title">📈 Mandi vs MSP Advisory Engine</span>
+            <span class="hud-badge" id="mandiDecisionBadge">HOLD STOCK</span>
+          </div>
+          <div class="market-stats-row">
+            <div class="m-stat">
+              <span class="stat-lbl">Statutory MSP</span>
+              <strong class="stat-val" id="statMsp">₹2,425</strong>
+            </div>
+            <div class="m-stat">
+              <span class="stat-lbl">Current Mandi</span>
+              <strong class="stat-val" id="statMandi">₹2,550</strong>
+            </div>
+            <div class="m-stat highlight-stat">
+              <span class="stat-lbl">90-Day Forecast</span>
+              <strong class="stat-val" id="statForecast">₹2,710</strong>
+            </div>
+          </div>
+          <p class="m-advisory" id="marketAdvisoryText">Loading market intelligence...</p>
+        </div>
+
+        <!-- Scheme Recommendation -->
+        <div class="scheme-box" id="schemeBox">
+          <div class="scheme-header-row">
+            <div class="scheme-title" id="schemeTitle">Waiting for Farmer Query</div>
+            <div class="eligibility-tag" id="eligibilityTag">Awaiting Voice Analysis</div>
+          </div>
+          <p id="schemeBenefit" class="scheme-benefit-text"></p>
+        </div>
+
+        <!-- 3-Step Action Plan -->
+        <div id="threeStepPlanContainer">
+          <h3 class="plan-heading">📋 3-Step Plain Language Action Plan:</h3>
+          <div id="planList">
+            <div class="action-step-item">Step 1: Speak or test to generate localized action guidance.</div>
+          </div>
+        </div>
+
+        <!-- Spoken Audio Guidance Player -->
+        <div class="card-header" style="margin-top: 0.5rem;">
+          <h2><span>🔊</span> Spoken Audio Response</h2>
+          <span class="tech-tag">Gnani Timbre TTS</span>
+        </div>
+        <div class="audio-player-wrapper">
+          <audio id="ttsAudioPlayer" controls autoplay></audio>
+          <p id="audioStatusText" class="audio-status-sub">
+            Playing regional Indic voice automatically.
+          </p>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    VoiceKisan • Built for The Great Indian AI Internship Challenge • Powered by Gnani AI (Prisma, Evon & Timbre) & Agricultural Price Forecasting ML
+  </footer>
+
+  <script src="app.js?v=2.0.1"></script>
+
+</body>
+</html>
